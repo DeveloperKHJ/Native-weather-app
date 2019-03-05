@@ -7,14 +7,14 @@ import PropTypes from 'prop-types';
 const weatherCases = {
     Rain: {
         colors: ['#00C6FB', "#005BEA", 'purple'],
-        title: "Raining like a MF",
-        subtitle: "For more info look outside",
+        title: "Some people feel the rain",
+        subtitle: "Others just get wet",
         icon: 'weather-rainy'
     },
     Clear: {
         colors: ['#FEF253', "#FF7300"],
-        title: "Sunny as fuck",
-        subtitle: "Go get your ass burnt",
+        title: "Sunny",
+        subtitle: "Think like a man of action and act like man of thought",
         icon: 'weather-sunny'
     },
     Thunderstorm: {
@@ -25,14 +25,14 @@ const weatherCases = {
     },
     Clouds: {
         colors: ['#D7D2CC', "#304352"],
-        title: "Clouds",
-        subtitle: "I know, fucking boring",
+        title: "Cloudy",
+        subtitle: "Great art is an instant arrested in eternity",
         icon: 'weather-cloudy'
     },
     Snow: {
         colors: ['#7DE2FC', "#B9B6E5"],
-        title: "Cold as balls",
-        subtitle: "Do you want to build a snowman? Fuck no.",
+        title: "It's cold",
+        subtitle: "Do you want to build a snowman? Hmm.. no.",
         icon: 'weather-snowy'
     },
     Drizzle: {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20
     },
     title: {
-        fontSize: 38,
+        fontSize: 35,
         backgroundColor: 'transparent',
         color: 'white',
         marginBottom: 10,
