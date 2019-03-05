@@ -5,6 +5,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>Hey!</Text>
         <View style={styles.redView}/>
         <View style={styles.yellowView}/>
       </View>
@@ -18,13 +19,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   redView:{
-    height:50,
-    width:50,
+    flex: 1,
     backgroundColor: 'red'
   },
   yellowView:{
-    height:50,
-    width:50,
+    flex: 1,
     backgroundColor: 'yellow'
   }
 });
