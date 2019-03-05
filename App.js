@@ -1,13 +1,61 @@
-import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import React, { Component }from 'react';
+import { StyleSheet, Text, View, StatusBar} from 'react-native';
+import Weather from "./Weather";
+
+const API_KEY = "b064260024ce38c4ec93c8ce6cb03240"
 
 export default class App extends React.Component {
+  state = {
+    isLoaded: false,
+    error: null,
+    temperature: null,
+    name: null,
+    city: null
+  };
+
+  componentDidMount(){
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this._getWeather(position.coords.latitude, position.coords.longitude);
+      },
+      error => {
+        this.setState({
+          error: error
+        });
+      }
+    );
+  }
+
+  _getWeather = (lat, long) => {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${API_KEY}`
+    )
+    .then(response => response.json())
+    .then(json => {
+      console.log(json.name);
+      console.log(json.sys.country);
+      this.setState({
+        temperature: json.main.temp,
+        name: json.weather[0].main,
+        city: json.name,
+        country: json.sys.country,
+        isLoaded: true
+      })
+    });
+  }
+
   render() {
+    const { isLoaded, error, temperature, name, city, country } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Hey!</Text>
-        <View style={styles.redView}/>
-        <View style={styles.yellowView}/>
+      <StatusBar hidden={true} />
+        {isLoaded ? <Weather weatherName={name} cityName={city} countryName={country} temp={Math.floor(temperature - 273.15)}/> : (
+        <View style={styles.loading}>
+          <Text style={styles.loadingText}>
+            Getting the fucking weather
+          </Text>
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        </View>)}
       </View>
     );
   }
@@ -18,12 +66,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
-  redView:{
+  loading:{
     flex: 1,
-    backgroundColor: 'red'
+    backgroundColor: '#FDF6AA',
+    justifyContent: 'flex-end',
+    paddingLeft: 24
   },
-  yellowView:{
-    flex: 1,
-    backgroundColor: 'yellow'
+  loadingText:{
+    fontSize: 30,
+    marginBottom: 20
+  },
+  errorText:{
+    fontSize: 20,
+    color:'red',
+    backgroundColor: 'transparent',
+    marginBottom: 80
   }
 });
